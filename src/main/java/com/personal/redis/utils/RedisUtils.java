@@ -374,7 +374,7 @@ public class RedisUtils {
      * @param value redis值
      * @return 给定key的旧值.当key没有旧值时,即key不存在时,返回nil;当key存在但不是字符串类型时,返回一个错误
      */
-    public static String getset(String key, String value) {
+    public static String getSet(String key, String value) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -390,11 +390,25 @@ public class RedisUtils {
 
     /**
      * 设置指定key的值,并返回key的旧值
+     * @param condition 满足这个条件才去getSet
      * @param key redis键
      * @param value redis值
      * @return 给定key的旧值.当key没有旧值时,即key不存在时,返回nil;当key存在但不是字符串类型时,返回一个错误
      */
-    public static byte[] getset(byte[] key, byte[] value) {
+    public static String getSet(boolean condition, String key, String value) {
+        if(condition){
+            return getSet(key, value);
+        }
+        return null;
+    }
+
+    /**
+     * 设置指定key的值,并返回key的旧值
+     * @param key redis键
+     * @param value redis值
+     * @return 给定key的旧值.当key没有旧值时,即key不存在时,返回nil;当key存在但不是字符串类型时,返回一个错误
+     */
+    public static byte[] getSet(byte[] key, byte[] value) {
         byte[] result = null;
         Jedis jedis = null;
         try {
@@ -406,6 +420,20 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 设置指定key的值,并返回key的旧值
+     * @param condition 满足这个条件才去getSet
+     * @param key redis键
+     * @param value redis值
+     * @return 给定key的旧值.当key没有旧值时,即key不存在时,返回nil;当key存在但不是字符串类型时,返回一个错误
+     */
+    public static byte[] getSet(boolean condition, byte[] key, byte[] value) {
+        if(condition){
+            return getSet(key, value);
+        }
+        return null;
     }
 
     /**
@@ -633,7 +661,7 @@ public class RedisUtils {
     /**
      * 将值value关联到key,并将key的过期时间设为seconds(以秒为单位)
      * @param key redis键
-     * @param seconds 过期时间
+     * @param seconds 过期时间 - 秒
      * @param value redis的值
      * @return 设置成功时返回OK
      */
@@ -655,7 +683,7 @@ public class RedisUtils {
      * 将值value关联到key,并将key的过期时间设为seconds(以秒为单位)
      * @param condition 满足这个条件才setex
      * @param key redis键
-     * @param seconds 过期时间
+     * @param seconds 过期时间 - 秒
      * @param value redis的值
      * @return 设置成功时返回OK
      */
@@ -669,7 +697,7 @@ public class RedisUtils {
     /**
      * 将值value关联到key,并将key的过期时间设为seconds(以秒为单位)
      * @param key redis键
-     * @param seconds 过期时间
+     * @param seconds 过期时间 - 秒
      * @param value redis的值
      * @return 设置成功时返回OK
      */
@@ -1974,7 +2002,7 @@ public class RedisUtils {
      * @param fields redis域
      * @return 被成功删除字段的数量,不包括被忽略的字段
      */
-    public static Long hdel(String key,String ... fields) {
+    public static Long hdel(String key, String ... fields) {
         Long result = null;
         Jedis jedis = null;
         try {
@@ -1995,7 +2023,7 @@ public class RedisUtils {
      * @param fields redis域
      * @return 被成功删除字段的数量,不包括被忽略的字段
      */
-    public static Long hdel(boolean condition, String key,String ... fields) {
+    public static Long hdel(boolean condition, String key, String ... fields) {
         if(condition){
             return hdel(key, fields);
         }
@@ -2008,7 +2036,7 @@ public class RedisUtils {
      * @param fields redis域
      * @return 被成功删除字段的数量,不包括被忽略的字段
      */
-    public static Long hdel(byte[] key,byte[] ... fields) {
+    public static Long hdel(byte[] key, byte[] ... fields) {
         Long result = null;
         Jedis jedis = null;
         try {
@@ -2029,7 +2057,7 @@ public class RedisUtils {
      * @param fields redis域
      * @return 被成功删除字段的数量,不包括被忽略的字段
      */
-    public static Long hdel(boolean condition, byte[] key,byte[] ... fields) {
+    public static Long hdel(boolean condition, byte[] key, byte[] ... fields) {
         if(condition){
             return hdel(key, fields);
         }
@@ -2048,7 +2076,7 @@ public class RedisUtils {
      * @param increment 增值
      * @return 累加指定增量值之后的key的值
      */
-    public static Long hincrBy(String key,String field, long increment) {
+    public static Long hincrBy(String key, String field, long increment) {
         Long result = null;
         Jedis jedis = null;
         try {
@@ -2093,7 +2121,7 @@ public class RedisUtils {
      * @param increment 增值
      * @return 累加指定增量值之后的key的值
      */
-    public static Long hincrBy(byte[] key,byte[] field, long increment) {
+    public static Long hincrBy(byte[] key, byte[] field, long increment) {
         Long result = null;
         Jedis jedis = null;
         try {
@@ -2119,7 +2147,7 @@ public class RedisUtils {
      * @param increment 增值
      * @return 累加指定增量值之后的key的值
      */
-    public static Long hincrBy(boolean condition, byte[] key,byte[] field, long increment) {
+    public static Long hincrBy(boolean condition, byte[] key, byte[] field, long increment) {
         if(condition){
             return hincrBy(key, field, increment);
         }
@@ -2138,7 +2166,7 @@ public class RedisUtils {
      * @param increment 增值
      * @return 累加指定增量值之后的key的值
      */
-    public static Double hincrByFloat(String key,String field, double increment) {
+    public static Double hincrByFloat(String key, String field, double increment) {
         Double result = null;
         Jedis jedis = null;
         try {
@@ -2183,7 +2211,7 @@ public class RedisUtils {
      * @param increment 增值
      * @return 累加指定增量值之后的key的值
      */
-    public static Double hincrByFloat(byte[] key,byte[] field, double increment) {
+    public static Double hincrByFloat(byte[] key, byte[] field, double increment) {
         Double result = null;
         Jedis jedis = null;
         try {
@@ -2209,7 +2237,7 @@ public class RedisUtils {
      * @param increment 增值
      * @return 累加指定增量值之后的key的值
      */
-    public static Double hincrByFloat(boolean condition, byte[] key,byte[] field, double increment) {
+    public static Double hincrByFloat(boolean condition, byte[] key, byte[] field, double increment) {
         if(condition){
             return hincrByFloat(key, field, increment);
         }
@@ -2416,7 +2444,7 @@ public class RedisUtils {
      * @param hash redis Map
      * @return 成功返回OK
      */
-    public static String hmset(String key,Map<String, String> hash) {
+    public static String hmset(String key, Map<String, String> hash) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -2439,7 +2467,7 @@ public class RedisUtils {
      * @param hash redis Map
      * @return 成功返回OK
      */
-    public static String hmset(boolean condition, String key,Map<String, String> hash) {
+    public static String hmset(boolean condition, String key, Map<String, String> hash) {
         if(condition){
             return hmset(key, hash);
         }
@@ -2454,7 +2482,7 @@ public class RedisUtils {
      * @param hash redis Map
      * @return 成功返回OK
      */
-    public static String hmset(byte[] key,Map<byte[], byte[]> hash) {
+    public static String hmset(byte[] key, Map<byte[], byte[]> hash) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -2477,7 +2505,7 @@ public class RedisUtils {
      * @param hash redis Map
      * @return 成功返回OK
      */
-    public static String hmset(boolean condition, byte[] key,Map<byte[], byte[]> hash) {
+    public static String hmset(boolean condition, byte[] key, Map<byte[], byte[]> hash) {
         if(condition){
             return hmset(key, hash);
         }
@@ -2577,6 +2605,19 @@ public class RedisUtils {
     }
 
     /**
+     * 移出并获取列表的第一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才blpop
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<String> blpop(boolean condition, String ... keys) {
+        if(condition){
+            return blpop(keys);
+        }
+        return null;
+    }
+
+    /**
      * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param keys redis键
@@ -2594,6 +2635,20 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才blpop
+     * @param timeout 超时时间
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<String> blpop(boolean condition, int timeout, String ... keys) {
+        if(condition){
+            return blpop(timeout, keys);
+        }
+        return null;
     }
 
     /**
@@ -2618,6 +2673,20 @@ public class RedisUtils {
 
     /**
      * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才blpop
+     * @param timeout 超时时间
+     * @param key redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<String> blpop(boolean condition, int timeout, String key) {
+        if(condition){
+            return blpop(timeout, key);
+        }
+        return null;
+    }
+
+    /**
+     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
      */
@@ -2633,6 +2702,19 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才blpop
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<byte[]> blpop(boolean condition, byte[] ... keys) {
+        if(condition){
+            return blpop(keys);
+        }
+        return null;
     }
 
     /**
@@ -2656,6 +2738,20 @@ public class RedisUtils {
     }
 
     /**
+     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才blpop
+     * @param timeout 超时时间
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<byte[]> blpop(boolean condition, int timeout, byte[] ... keys) {
+        if(condition){
+            return blpop(timeout, keys);
+        }
+        return null;
+    }
+
+    /**
      * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2672,6 +2768,19 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpop
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<String> brpop(boolean condition, String ... keys) {
+        if(condition){
+            return brpop(keys);
+        }
+        return null;
     }
 
     /**
@@ -2696,6 +2805,20 @@ public class RedisUtils {
 
     /**
      * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpop
+     * @param timeout 超时时间
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<String> brpop(boolean condition, int timeout, String ... keys) {
+        if(condition){
+            return brpop(timeout, keys);
+        }
+        return null;
+    }
+
+    /**
+     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param key redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2712,6 +2835,20 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpop
+     * @param timeout 超时时间
+     * @param key redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<String> brpop(boolean condition, int timeout, String key) {
+        if(condition){
+            return brpop(timeout, key);
+        }
+        return null;
     }
 
     /**
@@ -2734,6 +2871,19 @@ public class RedisUtils {
     }
 
     /**
+     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpop
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<byte[]> brpop(boolean condition, byte[] ... keys) {
+        if(condition){
+            return brpop(keys);
+        }
+        return null;
+    }
+
+    /**
      * 移出并获取列表的最后一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param keys redis键
@@ -2751,6 +2901,20 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移出并获取列表的最后一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpop
+     * @param timeout 超时时间
+     * @param keys redis键
+     * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
+     */
+    public static List<byte[]> brpop(boolean condition, int timeout, byte[] ... keys) {
+        if(condition){
+            return brpop(timeout, keys);
+        }
+        return null;
     }
 
     /**
@@ -2776,6 +2940,21 @@ public class RedisUtils {
 
     /**
      * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpoplpush
+     * @param source 源列表
+     * @param destination 另外一个列表
+     * @param timeout 超时时间
+     * @return 被操作的元素
+     */
+    public static String brpoplpush(boolean condition, String source, String destination, int timeout) {
+        if(condition){
+            return brpoplpush(source, destination, timeout);
+        }
+        return null;
+    }
+
+    /**
+     * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param source 源列表
      * @param destination 另外一个列表
      * @param timeout 超时时间
@@ -2793,6 +2972,21 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * @param condition 满足这个条件才brpoplpush
+     * @param source 源列表
+     * @param destination 另外一个列表
+     * @param timeout 超时时间
+     * @return 被操作的元素
+     */
+    public static byte[] brpoplpush(boolean condition, byte[] source, byte[] destination, int timeout) {
+        if(condition){
+            return brpoplpush(source, destination, timeout);
+        }
+        return null;
     }
 
     /**
@@ -3066,6 +3260,19 @@ public class RedisUtils {
 
     /**
      * 移出并获取列表的第一个元素
+     * @param condition 满足这个条件才lpop
+     * @param key redis键
+     * @return 列表的第一个元素.当列表key不存在时,返回nil
+     */
+    public static String lpop(boolean condition, String key) {
+        if(condition){
+            return lpop(key);
+        }
+        return null;
+    }
+
+    /**
+     * 移出并获取列表的第一个元素
      * @param key redis键
      * @return 列表的第一个元素.当列表key不存在时,返回nil
      */
@@ -3081,6 +3288,19 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移出并获取列表的第一个元素
+     * @param condition 满足这个条件才lpop
+     * @param key redis键
+     * @return 列表的第一个元素.当列表key不存在时,返回nil
+     */
+    public static byte[] lpop(boolean condition, byte[] key) {
+        if(condition){
+            return lpop(key);
+        }
+        return null;
     }
 
     /**
@@ -3538,6 +3758,19 @@ public class RedisUtils {
 
     /**
      * 移除列表的最后一个元素,返回值为移除的元素
+     * @param condition 满足这个条件才rpop
+     * @param key redis键
+     * @return 被移除的元素;当列表不存在时,返回nil
+     */
+    public static String rpop(boolean condition, String key) {
+        if(condition){
+            return rpop(key);
+        }
+        return null;
+    }
+
+    /**
+     * 移除列表的最后一个元素,返回值为移除的元素
      * @param key redis键
      * @return 被移除的元素;当列表不存在时,返回nil
      */
@@ -3553,6 +3786,19 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移除列表的最后一个元素,返回值为移除的元素
+     * @param condition 满足这个条件才rpop
+     * @param key redis键
+     * @return 被移除的元素;当列表不存在时,返回nil
+     */
+    public static byte[] rpop(boolean condition, byte[] key) {
+        if(condition){
+            return rpop(key);
+        }
+        return null;
     }
 
     /**
@@ -4077,6 +4323,21 @@ public class RedisUtils {
     /**
      * 将给定集合之间的交集存储在指定的集合中
      * 如果指定的集合已经存在,则将其覆盖
+     * @param condition 满足这个条件才sinterstore
+     * @param destination 存储键
+     * @param keys redis键
+     * @return 返回存储交集的集合的元素数量
+     */
+    public static Long sinterstore(boolean condition, String destination, String ... keys){
+        if(condition){
+            return sinterstore(destination, keys);
+        }
+        return null;
+    }
+
+    /**
+     * 将给定集合之间的交集存储在指定的集合中
+     * 如果指定的集合已经存在,则将其覆盖
      * @param destination 存储键
      * @param keys redis键
      * @return 返回存储交集的集合的元素数量
@@ -4093,6 +4354,21 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 将给定集合之间的交集存储在指定的集合中
+     * 如果指定的集合已经存在,则将其覆盖
+     * @param condition 满足这个条件才sinterstore
+     * @param destination 存储键
+     * @param keys redis键
+     * @return 返回存储交集的集合的元素数量
+     */
+    public static Long sinterstore(boolean condition, byte[] destination, byte[] ... keys){
+        if(condition){
+            return sinterstore(destination, keys);
+        }
+        return null;
     }
 
     /**
@@ -4159,6 +4435,21 @@ public class RedisUtils {
     /**
      * 所有给定集合的并集存储在destination集合中
      * 如果destination已经存在,则将其覆盖
+     * @param condition 满足这个条件才sunionstore
+     * @param destination 存储键
+     * @param keys redis键
+     * @return 结果集中的元素数量
+     */
+    public static Long sunionstore(boolean condition, String destination, String ... keys){
+        if(condition){
+            return sunionstore(destination, keys);
+        }
+        return null;
+    }
+
+    /**
+     * 所有给定集合的并集存储在destination集合中
+     * 如果destination已经存在,则将其覆盖
      * @param destination 存储键
      * @param keys redis键
      * @return 结果集中的元素数量
@@ -4175,6 +4466,21 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 所有给定集合的并集存储在destination集合中
+     * 如果destination已经存在,则将其覆盖
+     * @param condition 满足这个条件才sunionstore
+     * @param destination 存储键
+     * @param keys redis键
+     * @return 结果集中的元素数量
+     */
+    public static Long sunionstore(boolean condition, byte[] destination, byte[] ... keys){
+        if(condition){
+            return sunionstore(destination, keys);
+        }
+        return null;
     }
 
     /**
@@ -4290,6 +4596,26 @@ public class RedisUtils {
      * 否则,member元素从source集合中被移除,并添加到destination集合中去
      * 当destination集合已经包含member元素时,SMOVE命令只是简单地将source集合中的member元素删除
      * 当source或destination不是集合类型时,返回一个错误
+     * @param condition 满足这个条件才smove
+     * @param source 源
+     * @param destination 目标
+     * @param member 元素
+     * @return 如果成员元素被成功移除,返回1;如果成员元素不是source集合的成员,并且没有任何操作对destination集合执行,那么返回0
+     */
+    public static Long smove(boolean condition, String source, String destination, String member) {
+        if(condition){
+            return smove(source, destination, member);
+        }
+        return null;
+    }
+
+    /**
+     * 将指定成员member元素从source集合移动到destination集合
+     * SMOVE是原子性操作
+     * 如果source集合不存在或不包含指定的member元素,则SMOVE命令不执行任何操作,仅返回0
+     * 否则,member元素从source集合中被移除,并添加到destination集合中去
+     * 当destination集合已经包含member元素时,SMOVE命令只是简单地将source集合中的member元素删除
+     * 当source或destination不是集合类型时,返回一个错误
      * @param source 源
      * @param destination 目标
      * @param member 元素
@@ -4310,6 +4636,26 @@ public class RedisUtils {
     }
 
     /**
+     * 将指定成员member元素从source集合移动到destination集合
+     * SMOVE是原子性操作
+     * 如果source集合不存在或不包含指定的member元素,则SMOVE命令不执行任何操作,仅返回0
+     * 否则,member元素从source集合中被移除,并添加到destination集合中去
+     * 当destination集合已经包含member元素时,SMOVE命令只是简单地将source集合中的member元素删除
+     * 当source或destination不是集合类型时,返回一个错误
+     * @param condition 满足这个条件才smove
+     * @param source 源
+     * @param destination 目标
+     * @param member 元素
+     * @return 如果成员元素被成功移除,返回1;如果成员元素不是source集合的成员,并且没有任何操作对destination集合执行,那么返回0
+     */
+    public static Long smove(boolean condition, byte[] source, byte[] destination, byte[] member) {
+        if(condition){
+            return smove(source, destination, member);
+        }
+        return null;
+    }
+
+    /**
      * 移除并返回集合中的一个随机元素
      * @param key redis键
      * @return 被移除的随机元素.当集合不存在或是空集时,返回nil
@@ -4326,6 +4672,19 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移除并返回集合中的一个随机元素
+     * @param condition 满足这个条件才spop
+     * @param key redis键
+     * @return 被移除的随机元素.当集合不存在或是空集时,返回nil
+     */
+    public static String spop(boolean condition, String key) {
+        if(condition){
+            return spop(key);
+        }
+        return null;
     }
 
     /**
@@ -4349,6 +4708,20 @@ public class RedisUtils {
     }
 
     /**
+     * 移除并返回集合中的多个随机元素
+     * @param condition 满足这个条件才spop
+     * @param key redis键
+     * @param count 限制个数
+     * @return 被移除的随机元素.当集合不存在或是空集时,返回nil
+     */
+    public static Set<String> spop(boolean condition, String key, int count) {
+        if(condition){
+            return spop(key, count);
+        }
+        return null;
+    }
+
+    /**
      * 移除并返回集合中的一个随机元素
      * @param key redis键
      * @return 被移除的随机元素.当集合不存在或是空集时,返回nil
@@ -4365,6 +4738,19 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移除并返回集合中的一个随机元素
+     * @param condition 满足这个条件才spop
+     * @param key redis键
+     * @return 被移除的随机元素.当集合不存在或是空集时,返回nil
+     */
+    public static byte[] spop(boolean condition, byte[] key) {
+        if(condition){
+            return spop(key);
+        }
+        return null;
     }
 
     /**
@@ -4385,6 +4771,20 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移除并返回集合中的多个随机元素
+     * @param condition 满足这个条件才spop
+     * @param key redis键
+     * @param count 限制个数
+     * @return 被移除的随机元素.当集合不存在或是空集时,返回nil
+     */
+    public static Set<byte[]> spop(boolean condition, byte[] key, int count) {
+        if(condition){
+            return spop(key, count);
+        }
+        return null;
     }
 
     /**
@@ -4491,6 +4891,22 @@ public class RedisUtils {
      * 移除集合中一个或多个成员,不存在的成员元素会被忽略
      * 当key不是集合类型,返回一个错误
      * Redis2.4版本以前,SREM只接受单个成员值
+     * @param condition 满足这个条件才srem
+     * @param key redis键
+     * @param members 元素
+     * @return 被成功移除的元素的数量,不包括被忽略的元素
+     */
+    public static Long srem(boolean condition, String key, String ... members) {
+        if(condition){
+            return srem(key, members);
+        }
+        return null;
+    }
+
+    /**
+     * 移除集合中一个或多个成员,不存在的成员元素会被忽略
+     * 当key不是集合类型,返回一个错误
+     * Redis2.4版本以前,SREM只接受单个成员值
      * @param key redis键
      * @param members 元素
      * @return 被成功移除的元素的数量,不包括被忽略的元素
@@ -4507,6 +4923,22 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 移除集合中一个或多个成员,不存在的成员元素会被忽略
+     * 当key不是集合类型,返回一个错误
+     * Redis2.4版本以前,SREM只接受单个成员值
+     * @param condition 满足这个条件才srem
+     * @param key redis键
+     * @param members 元素
+     * @return 被成功移除的元素的数量,不包括被忽略的元素
+     */
+    public static Long srem(boolean condition, byte[] key, byte[] ... members) {
+        if(condition){
+            return srem(key, members);
+        }
+        return null;
     }
 
     /**
@@ -4560,6 +4992,76 @@ public class RedisUtils {
      */
     public static ScanResult<String> sscan(String key, String cursor, String pattern, int count){
         ScanResult<String> result = null;
+        Jedis jedis = null;
+        try {
+            ScanParams params = new ScanParams();
+            if(!StringUtils.isEmpty(pattern)){
+                params.match(pattern);
+            }
+            if(count > 0){
+                params.count(count);
+            }
+            jedis = getJedis();
+            result = jedis.sscan(key, cursor, params);
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 迭代数据库中的数据库键
+     * @param key redis键
+     * @return 数组列表
+     */
+    public static ScanResult<byte[]> sscanBinary(byte[] key){
+        return sscanBinary(key, ScanParams.SCAN_POINTER_START_BINARY, null, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键
+     * @param key redis键
+     * @param cursor 游标
+     * @return 数组列表
+     */
+    public static ScanResult<byte[]> sscanBinary(byte[] key, byte[] cursor){
+        return sscanBinary(key, cursor, null, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键
+     * @param key redis键
+     * @param cursor 游标
+     * @param pattern 表达式
+     * @return 数组列表
+     */
+    public static ScanResult<byte[]> sscanBinary(byte[] key, byte[] cursor, byte[] pattern){
+        return sscanBinary(key, cursor, pattern, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键
+     * @param key redis键
+     * @param cursor 游标
+     * @param count 限制数量
+     * @return 数组列表
+     */
+    public static ScanResult<byte[]> sscanBinary(byte[] key, byte[] cursor, int count){
+        return sscanBinary(key, cursor, null, count);
+    }
+
+    /**
+     * 迭代数据库中的数据库键
+     * @param key redis键
+     * @param cursor 游标
+     * @param pattern 表达式
+     * @param count 限制数量
+     * @return 数组列表
+     */
+    public static ScanResult<byte[]> sscanBinary(byte[] key, byte[] cursor, byte[] pattern, int count){
+        ScanResult<byte[]> result = null;
         Jedis jedis = null;
         try {
             ScanParams params = new ScanParams();
@@ -4997,6 +5499,21 @@ public class RedisUtils {
     /**
      * 计算给定的一个或多个有序集的交集,并将该交集(结果集)储存到destination
      * 默认情况下,结果集中某个成员的分数值是所有给定集下该成员分数值之和
+     * @param condition 满足这个条件才zinterstore
+     * @param destination 目标键
+     * @param members 元素
+     * @return 保存到目标结果集的的成员数量
+     */
+    public static Long zinterstore(boolean condition, String destination, String ... members){
+        if(condition){
+            return zinterstore(destination, members);
+        }
+        return null;
+    }
+
+    /**
+     * 计算给定的一个或多个有序集的交集,并将该交集(结果集)储存到destination
+     * 默认情况下,结果集中某个成员的分数值是所有给定集下该成员分数值之和
      * @param destination 目标键
      * @param members 元素
      * @return 保存到目标结果集的的成员数量
@@ -5013,6 +5530,21 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 计算给定的一个或多个有序集的交集,并将该交集(结果集)储存到destination
+     * 默认情况下,结果集中某个成员的分数值是所有给定集下该成员分数值之和
+     * @param condition 满足这个条件才zinterstore
+     * @param destination 目标键
+     * @param members 元素
+     * @return 保存到目标结果集的的成员数量
+     */
+    public static Long zinterstore(boolean condition, byte[] destination, byte[] ... members){
+        if(condition){
+            return zinterstore(destination, members);
+        }
+        return null;
     }
 
     /**
@@ -6047,6 +6579,21 @@ public class RedisUtils {
     /**
      * 计算给定的一个或多个有序集的并集,并将该并集(结果集)储存到destination
      * 默认情况下,结果集中某个成员的分数值是所有给定集下该成员分数值之和
+     * @param condition 满足这个条件才zunionstore
+     * @param destination 存储键
+     * @param members 元素
+     * @return 保存到destination的结果集的成员数量
+     */
+    public static Long zunionstore(boolean condition, String destination, String members){
+        if(condition){
+            return zunionstore(destination, members);
+        }
+        return null;
+    }
+
+    /**
+     * 计算给定的一个或多个有序集的并集,并将该并集(结果集)储存到destination
+     * 默认情况下,结果集中某个成员的分数值是所有给定集下该成员分数值之和
      * @param destination 存储键
      * @param members 元素
      * @return 保存到destination的结果集的成员数量
@@ -6063,6 +6610,21 @@ public class RedisUtils {
             close(jedis);
         }
         return result;
+    }
+
+    /**
+     * 计算给定的一个或多个有序集的并集,并将该并集(结果集)储存到destination
+     * 默认情况下,结果集中某个成员的分数值是所有给定集下该成员分数值之和
+     * @param condition 满足这个条件才zunionstore
+     * @param destination 存储键
+     * @param members 元素
+     * @return 保存到destination的结果集的成员数量
+     */
+    public static Long zunionstore(boolean condition, byte[] destination, byte[] members){
+        if(condition){
+            return zunionstore(destination, members);
+        }
+        return null;
     }
 
     /**
@@ -6115,6 +6677,76 @@ public class RedisUtils {
      * @return 返回的每个元素都是一个有序集合元素,一个有序集合元素由一个成员(member)和一个分值(score)组成
      */
     public static ScanResult<Tuple> zscan(String key, String cursor, String pattern, int count){
+        ScanResult<Tuple> result = null;
+        Jedis jedis = null;
+        try {
+            ScanParams params = new ScanParams();
+            if(!StringUtils.isEmpty(pattern)){
+                params.match(pattern);
+            }
+            if(count > 0){
+                params.count(count);
+            }
+            jedis = getJedis();
+            result = jedis.zscan(key, cursor, params);
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 迭代数据库中的数据库键(包括元素成员和元素分值)
+     * @param key redis键
+     * @return 返回的每个元素都是一个有序集合元素,一个有序集合元素由一个成员(member)和一个分值(score)组成
+     */
+    public static ScanResult<Tuple> zscanBinary(byte[] key){
+        return zscanBinary(key, ScanParams.SCAN_POINTER_START_BINARY, null, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键(包括元素成员和元素分值)
+     * @param key redis键
+     * @param cursor 游标
+     * @return 返回的每个元素都是一个有序集合元素,一个有序集合元素由一个成员(member)和一个分值(score)组成
+     */
+    public static ScanResult<Tuple> zscanBinary(byte[] key, byte[] cursor){
+        return zscanBinary(key, cursor, null, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键(包括元素成员和元素分值)
+     * @param key redis键
+     * @param cursor 游标
+     * @param pattern 表达式
+     * @return 返回的每个元素都是一个有序集合元素,一个有序集合元素由一个成员(member)和一个分值(score)组成
+     */
+    public static ScanResult<Tuple> zscanBinary(byte[] key, byte[] cursor, byte[] pattern){
+        return zscanBinary(key, cursor, pattern, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键(包括元素成员和元素分值)
+     * @param key redis键
+     * @param cursor 游标
+     * @param count 限制数量
+     * @return 返回的每个元素都是一个有序集合元素,一个有序集合元素由一个成员(member)和一个分值(score)组成
+     */
+    public static ScanResult<Tuple> zscanBinary(byte[] key, byte[] cursor, int count){
+        return zscanBinary(key, cursor, null, count);
+    }
+
+    /**
+     * 迭代数据库中的数据库键(包括元素成员和元素分值)
+     * @param key redis键
+     * @param cursor 游标
+     * @param pattern 表达式
+     * @param count 限制数量
+     * @return 返回的每个元素都是一个有序集合元素,一个有序集合元素由一个成员(member)和一个分值(score)组成
+     */
+    public static ScanResult<Tuple> zscanBinary(byte[] key, byte[] cursor, byte[] pattern, int count){
         ScanResult<Tuple> result = null;
         Jedis jedis = null;
         try {
@@ -6655,7 +7287,7 @@ public class RedisUtils {
         Jedis jedis = null;
         try {
             jedis = getJedis();
-            result = jedis.expireAt(key, millisecondsTimestamp);
+            result = jedis.pexpireAt(key, millisecondsTimestamp);
         } catch (Exception e) {
             log.error("redis operate fail ==> ", e);
         } finally {
@@ -7106,6 +7738,14 @@ public class RedisUtils {
 
     /**
      * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
+     */
+    public static ScanResult<String> scan(){
+        return scan(ScanParams.SCAN_POINTER_START, "", 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
@@ -7163,11 +7803,19 @@ public class RedisUtils {
 
     /**
      * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
+     */
+    public static ScanResult<byte[]> scanBinary(){
+        return scanBinary(ScanParams.SCAN_POINTER_START_BINARY, null, 0);
+    }
+
+    /**
+     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
-    public static ScanResult<byte[]> scan(byte[] cursor){
-        return scan(cursor, "", 0);
+    public static ScanResult<byte[]> scanBinary(byte[] cursor){
+        return scanBinary(cursor, null, 0);
     }
 
     /**
@@ -7176,8 +7824,8 @@ public class RedisUtils {
      * @param pattern 匹配的模式
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
-    public static ScanResult<byte[]> scan(byte[] cursor, String pattern){
-        return scan(cursor, pattern, 0);
+    public static ScanResult<byte[]> scanBinary(byte[] cursor, byte[] pattern){
+        return scanBinary(cursor, pattern, 0);
     }
 
     /**
@@ -7186,8 +7834,8 @@ public class RedisUtils {
      * @param count 限制条数
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
-    public static ScanResult<byte[]> scan(byte[] cursor, int count){
-        return scan(cursor, "", count);
+    public static ScanResult<byte[]> scanBinary(byte[] cursor, int count){
+        return scanBinary(cursor, null, count);
     }
 
     /**
@@ -7197,7 +7845,7 @@ public class RedisUtils {
      * @param count 限制条数
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
-    public static ScanResult<byte[]> scan(byte[] cursor, String pattern, int count){
+    public static ScanResult<byte[]> scanBinary(byte[] cursor, byte[] pattern, int count){
         ScanResult<byte[]> result = null;
         Jedis jedis = null;
         try {
