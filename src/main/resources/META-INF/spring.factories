@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.personal.redis.actuator.RedisActuatorEndpointConfiguration,\
+com.personal.redis.configure.RedisAutoConfiguration
