@@ -61,7 +61,8 @@ public class RedisUtils {
     //**********          redis字符串数据操作的方法          **********//
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @return 2.6.12以前版本,SET命令总是返回OK;2.6.12版本开始,SET在设置操作成功完成时,才返回OK
@@ -81,7 +82,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去set
      * @param key redis键
      * @param value redis值
@@ -95,7 +97,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @return 2.6.12以前版本,SET命令总是返回OK;2.6.12版本开始,SET在设置操作成功完成时,才返回OK
@@ -115,7 +118,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去set
      * @param key redis键
      * @param value redis值
@@ -129,7 +133,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @param expireSeconds 过期时间 - 秒
@@ -152,7 +157,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去set
      * @param key redis键
      * @param value redis值
@@ -167,7 +173,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @param expireSeconds 过期时间 - 秒
@@ -178,7 +185,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去set
      * @param key redis键
      * @param value redis值
@@ -193,7 +201,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @return 2.6.12以前版本,SET命令总是返回OK;2.6.12版本开始,SET在设置操作成功完成时,才返回OK
@@ -203,7 +212,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去setObj
      * @param key redis键
      * @param value redis值
@@ -217,7 +227,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @param expireSeconds 过期时间 - 秒
@@ -228,7 +239,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去setObj
      * @param key redis键
      * @param value redis值
@@ -243,7 +255,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param key redis键
      * @param value redis值
      * @param expireSeconds 过期时间 - 秒
@@ -254,7 +267,8 @@ public class RedisUtils {
     }
 
     /**
-     * 设置给定key的值;如果key已经存储其他值,覆写旧值,且无视类型
+     * 设置给定key的值
+     * 如果key已经存储其他值,覆写旧值,且无视类型
      * @param condition 满足这个条件才去setObj
      * @param key redis键
      * @param value redis值
@@ -327,7 +341,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取存储在指定key中字符串的子字符串,字符串的截取范围由startOffset和endOffset两个偏移量决定(包括startOffset和endOffset在内)
+     * 获取存储在指定key中字符串的子字符串
+     * 字符串的截取范围由startOffset和endOffset两个偏移量决定(包括startOffset和endOffset在内)
      * @param key redis键
      * @param startOffset 偏移开始
      * @param endOffset 偏移结束
@@ -348,7 +363,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取存储在指定key中字符串的子字符串,字符串的截取范围由startOffset和endOffset两个偏移量决定(包括startOffset和endOffset在内)
+     * 获取存储在指定key中字符串的子字符串
+     * 字符串的截取范围由startOffset和endOffset两个偏移量决定(包括startOffset和endOffset在内)
      * @param key redis键
      * @param startOffset 偏移开始
      * @param endOffset 偏移结束
@@ -477,7 +493,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取所有(一个或多个)给定key的值.如果给定的key里面,有某个key不存在,那么这个key返回特殊值nil
+     * 获取所有(一个或多个)给定key的值
+     * 如果给定的key里面,有某个key不存在,那么这个key返回特殊值nil
      * @param keys redis键
      * @return 一个包含所有给定key的值的列表
      */
@@ -496,7 +513,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取所有(一个或多个)给定key的值.如果给定的key里面,有某个key不存在,那么这个key返回特殊值nil
+     * 获取所有(一个或多个)给定key的值
+     * 如果给定的key里面,有某个key不存在,那么这个key返回特殊值nil
      * @param keys redis键
      * @return 一个包含所有给定key的值的列表
      */
@@ -871,7 +889,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取key所储存的字符串值的长度.当key储存的不是字符串值时,返回一个错误
+     * 获取key所储存的字符串值的长度
+     * 当key储存的不是字符串值时,返回一个错误
      * @param key redis键
      * @return 字符串值的长度.当key不存在时,返回0
      */
@@ -890,7 +909,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取key所储存的字符串值的长度.当key储存的不是字符串值时,返回一个错误
+     * 获取key所储存的字符串值的长度
+     * 当key储存的不是字符串值时,返回一个错误
      * @param key redis键
      * @return 字符串值的长度.当key不存在时,返回0
      */
@@ -1565,7 +1585,8 @@ public class RedisUtils {
     }
 
     /**
-     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾;如果key不存在,就将给定key设为value
+     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾
+     * 如果key不存在,就将给定key设为value
      * @param key redis键
      * @param value redis值
      * @return 追加指定值之后,key中字符串的长度
@@ -1585,7 +1606,8 @@ public class RedisUtils {
     }
 
     /**
-     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾;如果key不存在,就将给定key设为value
+     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾
+     * 如果key不存在,就将给定key设为value
      * @param condition 满足这个条件才去append
      * @param key redis键
      * @param value redis值
@@ -1599,7 +1621,8 @@ public class RedisUtils {
     }
 
     /**
-     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾;如果key不存在,就将给定key设为value
+     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾
+     * 如果key不存在,就将给定key设为value
      * @param key redis键
      * @param value redis值
      * @return 追加指定值之后,key中字符串的长度
@@ -1619,7 +1642,8 @@ public class RedisUtils {
     }
 
     /**
-     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾;如果key不存在,就将给定key设为value
+     * 如果key已经存在并且是一个字符串,将value追加到该key原来值value的末尾
+     * 如果key不存在,就将给定key设为value
      * @param condition 满足这个条件才去append
      * @param key redis键
      * @param value redis值
@@ -2359,7 +2383,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取哈希表中,一个或多个给定字段的值;如果指定的字段不存在于哈希表,那么返回一个nil值
+     * 获取哈希表中,一个或多个给定字段的值
+     * 如果指定的字段不存在于哈希表,那么返回一个nil值
      * @param key redis键
      * @param fields redis域
      * @return 一个包含多个给定字段关联值的表,表值的排列顺序和指定字段的请求顺序一样
@@ -2379,7 +2404,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取哈希表中,一个或多个给定字段的值;如果指定的字段不存在于哈希表,那么返回一个nil值
+     * 获取哈希表中,一个或多个给定字段的值
+     * 如果指定的字段不存在于哈希表,那么返回一个nil值
      * @param key redis键
      * @param fields redis域
      * @return 一个包含多个给定字段关联值的表,表值的排列顺序和指定字段的请求顺序一样
@@ -2398,7 +2424,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取哈希表中,一个或多个给定字段的值;如果指定的字段不存在于哈希表,那么返回一个nil值
+     * 获取哈希表中,一个或多个给定字段的值
+     * 如果指定的字段不存在于哈希表,那么返回一个nil值
      * @param key redis键
      * @param fields redis域
      * @return 一个包含多个给定字段关联值的表,表值的排列顺序和指定字段的请求顺序一样
@@ -2418,7 +2445,8 @@ public class RedisUtils {
     }
 
     /**
-     * 获取哈希表中,一个或多个给定字段的值;如果指定的字段不存在于哈希表,那么返回一个nil值
+     * 获取哈希表中,一个或多个给定字段的值
+     * 如果指定的字段不存在于哈希表,那么返回一个nil值
      * @param key redis键
      * @param fields redis域
      * @return 一个包含多个给定字段关联值的表,表值的排列顺序和指定字段的请求顺序一样
@@ -2586,7 +2614,8 @@ public class RedisUtils {
     //**********          redis列表数据操作的方法          **********//
 
     /**
-     * 移出并获取列表的第一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
      */
@@ -2605,7 +2634,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才blpop
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2618,7 +2648,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2638,7 +2669,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才blpop
      * @param timeout 超时时间
      * @param keys redis键
@@ -2652,7 +2684,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param key redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2672,7 +2705,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才blpop
      * @param timeout 超时时间
      * @param key redis键
@@ -2686,7 +2720,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
      */
@@ -2705,7 +2740,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才blpop
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2718,7 +2754,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2738,7 +2775,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的第一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的第一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才blpop
      * @param timeout 超时时间
      * @param keys redis键
@@ -2752,7 +2790,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
      */
@@ -2771,7 +2810,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpop
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2784,7 +2824,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2804,7 +2845,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpop
      * @param timeout 超时时间
      * @param keys redis键
@@ -2818,7 +2860,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param key redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2838,7 +2881,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpop
      * @param timeout 超时时间
      * @param key redis键
@@ -2852,7 +2896,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
      */
@@ -2871,7 +2916,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素, 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpop
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2884,7 +2930,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param timeout 超时时间
      * @param keys redis键
      * @return 如果列表为空,返回一个nil;否则,返回一个含有两个元素的列表,第一个元素是被弹出元素所属的key,第二个元素是被弹出元素的值
@@ -2904,7 +2951,8 @@ public class RedisUtils {
     }
 
     /**
-     * 移出并获取列表的最后一个元素,如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 移出并获取列表的最后一个元素
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpop
      * @param timeout 超时时间
      * @param keys redis键
@@ -2918,7 +2966,8 @@ public class RedisUtils {
     }
 
     /**
-     * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 从列表中取出最后一个元素,并插入到另外一个列表的头部
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param source 源列表
      * @param destination 另外一个列表
      * @param timeout 超时时间
@@ -2939,7 +2988,8 @@ public class RedisUtils {
     }
 
     /**
-     * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 从列表中取出最后一个元素,并插入到另外一个列表的头部
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpoplpush
      * @param source 源列表
      * @param destination 另外一个列表
@@ -2954,7 +3004,8 @@ public class RedisUtils {
     }
 
     /**
-     * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 从列表中取出最后一个元素,并插入到另外一个列表的头部
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param source 源列表
      * @param destination 另外一个列表
      * @param timeout 超时时间
@@ -2975,7 +3026,8 @@ public class RedisUtils {
     }
 
     /**
-     * 从列表中取出最后一个元素,并插入到另外一个列表的头部;如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+     * 从列表中取出最后一个元素,并插入到另外一个列表的头部
+     * 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      * @param condition 满足这个条件才brpoplpush
      * @param source 源列表
      * @param destination 另外一个列表
@@ -2990,7 +3042,8 @@ public class RedisUtils {
     }
 
     /**
-     * 通过索引获取列表中的元素.你也可以使用负数下标,以-1表示列表的最后一个元素,-2表示列表的倒数第二个元素,以此类推
+     * 通过索引获取列表中的元素
+     * 你也可以使用负数下标,-1表示列表的最后一个元素,-2表示列表的倒数第二个元素,以此类推
      * @param key redis键
      * @param index 列表索引
      * @return 列表中下标为指定索引值的元素;如果指定索引值不在列表的区间范围内,返回nil
@@ -3010,7 +3063,8 @@ public class RedisUtils {
     }
 
     /**
-     * 通过索引获取列表中的元素.你也可以使用负数下标,以-1表示列表的最后一个元素,-2表示列表的倒数第二个元素,以此类推
+     * 通过索引获取列表中的元素
+     * 你也可以使用负数下标,-1表示列表的最后一个元素,-2表示列表的倒数第二个元素,以此类推
      * @param key redis键
      * @param index 列表索引
      * @return 列表中下标为指定索引值的元素;如果指定索引值不在列表的区间范围内,返回nil
@@ -5922,7 +5976,8 @@ public class RedisUtils {
     }
 
     /**
-     * 返回有序集中指定成员的排名,其中有序集成员按分数值递增(从小到大)顺序排列
+     * 返回有序集中指定成员的排名
+     * 其中有序集成员按分数值递增(从小到大)顺序排列
      * @param key redis键
      * @param member 成员
      * @return 如果成员是有序集key的成员,返回member的排名;如果成员不是有序集key的成员,返回nil
@@ -5942,7 +5997,8 @@ public class RedisUtils {
     }
 
     /**
-     * 返回有序集中指定成员的排名,其中有序集成员按分数值递增(从小到大)顺序排列
+     * 返回有序集中指定成员的排名
+     * 其中有序集成员按分数值递增(从小到大)顺序排列
      * @param key redis键
      * @param member 成员
      * @return 如果成员是有序集key的成员,返回member的排名;如果成员不是有序集key的成员,返回nil
@@ -7436,7 +7492,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将当前数据库的key移动到给定的dbIndex数据库当中
+     * 移除key的过期时间,key将持久保持
      * @param condition 满足条件才persist
      * @param key redis键
      * @return 当过期时间移除成功时,返回1;如果key不存在或key没有设置过期时间,返回0
@@ -7468,7 +7524,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将当前数据库的key移动到给定的dbIndex数据库当中
+     * 移除key的过期时间,key将持久保持
      * @param condition 满足条件才persist
      * @param key redis键
      * @return 当过期时间移除成功时,返回1;如果key不存在或key没有设置过期时间,返回0
@@ -7737,7 +7793,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
     public static ScanResult<String> scan(){
@@ -7745,7 +7803,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
@@ -7754,7 +7814,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @param pattern 匹配的模式
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
@@ -7764,7 +7826,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @param count 限制条数
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
@@ -7774,7 +7838,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @param pattern 匹配的模式
      * @param count 限制条数
@@ -7802,7 +7868,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
     public static ScanResult<byte[]> scanBinary(){
@@ -7810,7 +7878,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
      */
@@ -7819,7 +7889,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @param pattern 匹配的模式
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
@@ -7829,7 +7901,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @param count 限制条数
      * @return 一个包含两个元素的数组,第一个元素是用于进行下一次迭代的新游标,而第二个元素则是一个数组,这个数组中包含了所有被迭代的元素;如果新游标返回0表示迭代已结束
@@ -7839,7 +7913,9 @@ public class RedisUtils {
     }
 
     /**
-     * 迭代数据库中的数据库键 - 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标,用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
+     * 迭代数据库中的数据库键
+     * 一个基于游标的迭代器,每次被调用之后,都会向用户返回一个新的游标
+     * 用户在下次迭代时需要使用这个新游标作为SCAN命令的游标参数,以此来延续之前的迭代过程
      * @param cursor 游标
      * @param pattern 匹配的模式
      * @param count 限制条数
