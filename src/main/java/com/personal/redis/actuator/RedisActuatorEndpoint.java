@@ -3,6 +3,8 @@
  */
 package com.personal.redis.actuator;
 
+import com.personal.redis.utils.RedisInfoUtils;
+import com.personal.redis.utils.RedisUtils;
 import com.personal.redis.utils.SpringUtils;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
@@ -46,7 +48,12 @@ public class RedisActuatorEndpoint {
         });
 
         result.put("size", size);
-        result.put("info", jedisPoolList);
+        result.put("pool", jedisPoolList);
+        result.put("isRun", RedisUtils.isRun());
+        result.put("clientName",RedisUtils.clientGetname());
+        result.put("serverTime",RedisUtils.serverTime());
+        result.put("dbSize",RedisUtils.dbSize());
+        result.put("system", RedisInfoUtils.systemInfo());
         return result;
     }
 }
