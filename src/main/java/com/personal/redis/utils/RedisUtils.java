@@ -5,10 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.*;
-import redis.clients.jedis.params.ZAddParams;
+import redis.clients.jedis.params.SetParams;
 
-import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.*;
 
 /**
@@ -22,6 +20,8 @@ public class RedisUtils {
 
     private static JedisPool pool = null;
 
+    private static String OK = "OK";
+
     //**********          redis连接池操作的方法          **********//
 
     /**
@@ -30,7 +30,7 @@ public class RedisUtils {
      */
     public static JedisPool getPool() {
         if (pool == null) {
-        	pool = SpringUtils.getBean(JedisPool.class);
+            pool = SpringUtils.getBean(JedisPool.class);
         }
         return pool;
     }
@@ -51,11 +51,30 @@ public class RedisUtils {
     public static void close(Jedis redis) {
         if (redis != null) {
             try {
-            	redis.close();
-			} catch (Exception e) {
-				log.error("redis close fail ==> ", e);
-			}
+                redis.close();
+            } catch (Exception e) {
+                log.error("redis close fail ==> ", e);
+            }
         }
+    }
+
+    //**********          redis获取系统信息的方法          **********//
+    /**
+     * 获取系统信息
+     * @return 系统信息
+     */
+    public static String info() {
+        String result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.info();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
     }
 
     //**********          redis字符串数据操作的方法          **********//
@@ -1656,8 +1675,6 @@ public class RedisUtils {
         return null;
     }
 
-    //todo 字符串操作结束
-
     //**********          redis哈希数据操作的方法          **********//
 
     /**
@@ -2610,7 +2627,6 @@ public class RedisUtils {
         return result;
     }
 
-    // todo hash操作结束
     //**********          redis列表数据操作的方法          **********//
 
     /**
@@ -4075,8 +4091,6 @@ public class RedisUtils {
         return null;
     }
 
-    // todo 列表操作结束
-
     //**********          redis集合数据操作的方法          **********//
 
     /**
@@ -5134,8 +5148,6 @@ public class RedisUtils {
         }
         return result;
     }
-
-    // todo 集合操作结束
 
     //**********          redis有序集合数据操作的方法          **********//
 
@@ -6823,7 +6835,6 @@ public class RedisUtils {
         return result;
     }
 
-    // todo 有序集合操作结束
     //**********          redis键数据操作的方法          **********//
 
     /**
@@ -7980,118 +7991,114 @@ public class RedisUtils {
         return result;
     }
 
-
-    // todo key操作结束
-
-
-
+    //**********          redis并发操作的方法          **********//
     /**
-     * 可以在并发中使用的不可重复设置锁
-     * @param rediskey
-     * @param value
-     * @param seconds
-     * @return
+     * 单服务使用时,redis锁set值
+     * 没有过期时间
+     * 默认重试5秒
+     * @param key redis键
+     * @param value redis值
+     * @return 设置成功TRUE,失败FALSE
      */
-	/*public static boolean tranactionSet(String rediskey,String value,int seconds) {
-		
-		String redisResult = com.ncbx.core.redis.cache.RedisUtils.get(rediskey);
-        Jedis jedis = null;
-		
-        if(StringUtils.isEmpty(redisResult)){
-    		try {
-                jedis = getJedis();
-        		
-        		jedis.watch(rediskey);
-        		
-        		redisResult= jedis.get(rediskey);
-        		if(StringUtils.isNotEmpty(redisResult)){
-        			return false;
-        		}
-        		
-                Transaction tx = jedis.multi();
-                
-        		tx.setex(rediskey ,seconds ,value);
-                List<Object> result = tx.exec();
-                if (result == null || result.isEmpty()) {
-                    jedis.unwatch();
-                    return false;
-                }else{
-                	return true;
-                }
-                
-            } catch (Exception e) {
-                log.error("redis operate fail ==> ", e);
-                return false;
-            } finally {
-                close(jedis);
-            }
-        }else{
-        	return false;
-        }
-	}
-	
-	public static boolean tranactionSet(String rediskey,int seconds) {
-		String value = Instant.now().toEpochMilli() + GetCode.getRandomCode(5);
-		return tranactionSet(rediskey, value, seconds);
-	}
-	
-	public static boolean tranactionSet(String rediskey) {
-		String value = Instant.now().toEpochMilli() + GetCode.getRandomCode(5);
-
-		return tranactionSet(rediskey, value, 30);
-	}*/
-
-
-    
-
-
-    /**
-     * 
-     * @return
-     */
-    public static String info() {
-        String result = null;
-        Jedis jedis = null;
-        try {
-            jedis = getJedis();
-            result = jedis.info();
-        } catch (Exception e) {
-            log.error("redis operate fail ==> ", e);
-        } finally {
-            close(jedis);
-        }
-        return result;
+    public static synchronized Boolean singleLockSet(String key, String value){
+        return singleLockSet(key, value, 5);
     }
 
     /**
-     * 分布式锁(可以在并发中使用的不可重复设置锁,
-     * @param rediskey
-     * @param value
-     * @param seconds
-     * @return
+     * 单服务使用时,redis锁set值
+     * 没有过期时间
+     * @param key redis键
+     * @param value redis值
+     * @param tryTimeoutSeconds 尝试设置超时时间 - 秒
+     * @return 设置成功TRUE,失败FALSE
      */
-    public static boolean setnx(String rediskey,String value,int seconds) {
+    public static synchronized Boolean singleLockSet(String key, String value, int tryTimeoutSeconds){
+        return singleLockSet(key, value, 0L, tryTimeoutSeconds);
+    }
 
+    /**
+     * 单服务使用时,redis锁set值
+     * 默认重试5秒
+     * @param key redis键
+     * @param value redis值
+     * @param expireSeconds 过期时间 - 秒
+     * @return 设置成功TRUE,失败FALSE
+     */
+    public static synchronized Boolean singleLockSet(String key, String value, long expireSeconds){
+        return singleLockSet(key, value, expireSeconds, 5);
+    }
+
+    /**
+     * 单服务使用时,redis锁set值
+     * @param key redis键
+     * @param value redis值
+     * @param expireSeconds 过期时间 - 秒
+     * @param tryTimeoutSeconds 尝试设置超时时间 - 秒
+     * @return 设置成功TRUE,失败FALSE
+     */
+    public static synchronized Boolean singleLockSet(String key, String value, long expireSeconds, long tryTimeoutSeconds){
+        long time = System.currentTimeMillis();
+        long timeoutAt = time + tryTimeoutSeconds * 1000;
+        while(setnx(key, value) == 0){
+            // 当setnx设置失败时执行
+            // 当前时间大于等于超时时间
+            if(System.currentTimeMillis() >= timeoutAt){
+                return Boolean.FALSE;
+            }
+        }
+        // 设置过期时间
+        if(expireSeconds > 0){
+            expire(key, new Long(expireSeconds).intValue());
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     * 多服务使用时 - 获取分布式锁
+     * @param key redis键
+     * @param requestId 请求ID,可以用UUID - 解锁时需要用
+     * @param expireSeconds 过期时间 - 秒
+     * @return 获取成功TRUE,失败FALSE
+     */
+    public static Boolean getLock(String key, String requestId, int expireSeconds){
         Jedis jedis = null;
         try {
             jedis = getJedis();
-
-            //判断设置锁的值是否成功 1=成功,0=失败
-            if(jedis.setnx(rediskey,value) == 1){
-                jedis.expire(rediskey,seconds);
-                return true;
-            }else{
-                return false;
+            String result = jedis.set(key, requestId, SetParams.setParams().ex(expireSeconds).nx());
+            if (OK.equals(result)) {
+                log.info("redis get distributed lock success, key[{}], requestId[{}], expireSeconds[{}]", key, requestId, expireSeconds);
+                return Boolean.TRUE;
             }
-
         } catch (Exception e) {
-            if (jedis.get(rediskey)!=null&&value.equals(jedis.get(rediskey))) {
-                jedis.del(rediskey);
-            }
-            log.error("redis operate fail ==> ", e);
-            return false;
+            log.error("redis get distributed lock fail => ", e);
         } finally {
             close(jedis);
         }
+        return Boolean.FALSE;
+    }
+
+    /**
+     * 多服务使用时 - 解锁
+     * 使用lua脚本,保证"判断"和"删除"操作原子性
+     * @param key redis键
+     * @param requestId 获取锁时设置的请求ID
+     * @return 解锁成功TRUE,失败FALSE
+     */
+    public static Boolean releaseLock(String key, String requestId){
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+            Object result = jedis.eval(script, Collections.singletonList(key), Collections.singletonList(requestId));
+            if (OK.equals(result)) {
+                log.info("redis release distributed lock success, key[{}], requestId[{}]", key, requestId);
+                return Boolean.TRUE;
+            }
+        } catch (Exception e) {
+            log.error("redis release distributed lock fail => ", e);
+        } finally {
+            close(jedis);
+        }
+        return Boolean.FALSE;
     }
 }
