@@ -59,8 +59,60 @@ public class RedisUtils {
     }
 
     //**********          redis获取系统信息的方法          **********//
+
     /**
-     * 获取系统信息
+     * 测试与服务器的连接是否仍然生效
+     * 或者用于测量延迟值
+     * @return 正常返回TRUE,失败返回FALSE
+     */
+    public static Boolean isRun(){
+        if("PONG".equals(ping())){
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+    /**
+     * 测试与服务器的连接是否仍然生效
+     * 或者用于测量延迟值
+     * @return 正常返回PONG,异常返回一个连接错误
+     */
+    public static String ping() {
+        String result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.ping();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 测试与服务器的连接是否仍然生效
+     * 或者用于测量延迟值
+     * @param message 信息
+     * @return 正常返回message参数,异常返回一个连接错误
+     */
+    public static String ping(String message) {
+        String result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.ping(message);
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取系统信息 - 全部
      * @return 系统信息
      */
     public static String info() {
@@ -69,6 +121,134 @@ public class RedisUtils {
         try {
             jedis = getJedis();
             result = jedis.info();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取系统信息 - 部分
+     * @param section 单独某一部分
+     * @return 系统信息
+     */
+    public static String info(String section) {
+        String result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.info(section);
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取客户端信息列表
+     * @return 客户端信息列表
+     */
+    public static String clientList() {
+        String result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.clientList();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取客户端名称
+     * @return 客户端名称
+     */
+    public static String clientGetname() {
+        String result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.clientGetname();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取集群节点的映射数组
+     * @return 节点信息
+     */
+    public static List<Object> clusterSlots() {
+        List<Object> result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.clusterSlots();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取当前服务器时间
+     * @return 服务器时间
+     */
+    public static List<String> serverTime() {
+        List<String> result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.time();
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取指定配置参数的值
+     * @param pattern 表达式
+     * @return 配置参数
+     */
+    public static List<String> configGet(String pattern) {
+        List<String> result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.configGet(pattern);
+        } catch (Exception e) {
+            log.error("redis operate fail ==> ", e);
+        } finally {
+            close(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 获取当前数据库key的数量
+     * @return 配置参数
+     */
+    public static Long dbSize() {
+        Long result = null;
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            result = jedis.dbSize();
         } catch (Exception e) {
             log.error("redis operate fail ==> ", e);
         } finally {

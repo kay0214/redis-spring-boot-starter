@@ -42,22 +42,63 @@ public class RedisAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(name = {"redis.enable"}, havingValue = "true")
     public JedisPool jedisPool(){
-        Assert.isTrue(!StringUtils.isEmpty(this.jedisProperties.getIp()), "ip can't be empty.");
-        Assert.isTrue(!StringUtils.isEmpty(this.jedisProperties.getPort()), "port can't be empty.");
+        Assert.isTrue(!StringUtils.isEmpty(jedisProperties.getIp()), "ip can't be empty.");
+        Assert.isTrue(!StringUtils.isEmpty(jedisProperties.getPort()), "port can't be empty.");
         // 获取连接池配置
         JedisPoolProperties poolProperties = jedisProperties.getPool();
-        log.info("redis init ok");
-        if(poolProperties == null){
-            return new JedisPool(this.jedisProperties.getIp(), this.jedisProperties.getPort());
-        }else{
-            JedisPoolConfig poolConfig = new JedisPoolConfig();
+        // 连接池配置定义
+        JedisPoolConfig poolConfig = null;
+        if(poolProperties != null){
+            poolConfig = new JedisPoolConfig();
             poolConfig.setMaxTotal(poolProperties.getMaxActive());
             poolConfig.setMaxIdle(poolProperties.getMaxIdle());
             poolConfig.setMaxWaitMillis(poolProperties.getMaxWait());
             poolConfig.setTestOnBorrow(poolProperties.isTestOnBorrow());
             poolConfig.setTestOnReturn(poolProperties.isTestOnReturn());
-            return new JedisPool(poolConfig, this.jedisProperties.getIp(), this.jedisProperties.getPort(), 100000, this.jedisProperties.getPassword(), this.jedisProperties.getDb());
         }
 
+        if(jedisProperties.getTimeout() == 0
+                && StringUtils.isEmpty(jedisProperties.getPassword())
+                && jedisProperties.getDb() == null
+                && StringUtils.isEmpty(jedisProperties.getClientName())){
+            // ip, port有参数
+            log.info("redis init ok. ip[{}], port[{}]", jedisProperties.getIp(), jedisProperties.getPort());
+            return poolConfig == null ? new JedisPool(jedisProperties.getIp(), jedisProperties.getPort()) : new JedisPool(poolConfig, jedisProperties.getIp(), jedisProperties.getPort());
+        }else if(jedisProperties.getTimeout() > 0
+                && StringUtils.isEmpty(jedisProperties.getPassword())
+                && jedisProperties.getDb() == null
+                && StringUtils.isEmpty(jedisProperties.getClientName())){
+            // ip, port, timeout有参数
+            log.info("redis init ok. ip[{}], port[{}], timeout[{}]", jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout());
+            return poolConfig == null ? new JedisPool(new JedisPoolConfig(), jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout())
+                    : new JedisPool(poolConfig, jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout());
+        }else if(jedisProperties.getTimeout() > 0
+                && !StringUtils.isEmpty(jedisProperties.getPassword())
+                && jedisProperties.getDb() == null
+                && StringUtils.isEmpty(jedisProperties.getClientName())){
+            // ip, port, timeout, password有参数
+            log.info("redis init ok. ip[{}], port[{}], timeout[{}], password[{}]", jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword());
+            return poolConfig == null ? new JedisPool(new JedisPoolConfig(), jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword())
+                    : new JedisPool(poolConfig, jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword());
+        }else if(jedisProperties.getTimeout() > 0
+                && !StringUtils.isEmpty(jedisProperties.getPassword())
+                && jedisProperties.getDb() != null
+                && StringUtils.isEmpty(jedisProperties.getClientName())){
+            // ip, port, timeout, password, db有参数
+            log.info("redis init ok. ip[{}], port[{}], timeout[{}], password[{}], db[{}]", jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword(), jedisProperties.getDb());
+            return poolConfig == null ? new JedisPool(new JedisPoolConfig(), jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword(), jedisProperties.getDb())
+                    : new JedisPool(poolConfig, jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword(), jedisProperties.getDb());
+        }else if(jedisProperties.getTimeout() > 0
+                && !StringUtils.isEmpty(jedisProperties.getPassword())
+                && jedisProperties.getDb() != null
+                && !StringUtils.isEmpty(jedisProperties.getClientName())){
+            // ip, port, timeout, password, db, clientName有参数
+            log.info("redis init ok. ip[{}], port[{}], timeout[{}], password[{}], db[{}], clientName[{}]", jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword(), jedisProperties.getDb(), jedisProperties.getClientName());
+            return poolConfig == null ? new JedisPool(new JedisPoolConfig(), jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword(), jedisProperties.getDb(), jedisProperties.getClientName())
+                    : new JedisPool(poolConfig, jedisProperties.getIp(), jedisProperties.getPort(), jedisProperties.getTimeout(), jedisProperties.getPassword(), jedisProperties.getDb(), jedisProperties.getClientName());
+        }else{
+            Assert.isTrue(true, "redis init fail");
+            return null;
+        }
     }
 }

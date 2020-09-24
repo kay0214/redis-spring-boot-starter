@@ -15,8 +15,10 @@ public class JedisProperties {
     private boolean enable;
     private String ip;
     private Integer port;
+    private int timeout;
     private String password;
-    private int db;
+    private Integer db;
+    private String clientName;
     private JedisPoolProperties pool;
 
     public boolean isEnable() {
@@ -43,6 +45,14 @@ public class JedisProperties {
         this.port = port;
     }
 
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -51,12 +61,20 @@ public class JedisProperties {
         this.password = password;
     }
 
-    public int getDb() {
+    public Integer getDb() {
         return db;
     }
 
-    public void setDb(int db) {
+    public void setDb(Integer db) {
         this.db = db;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public JedisPoolProperties getPool() {
