@@ -21,7 +21,7 @@ public class RedisHealthIndicator implements HealthIndicator {
         Health.Builder builder = new Health.Builder();
         if(RedisUtils.isRun()){
             // 把redis系统信息放入
-            RedisInfoUtils.systemInfo().forEach(builder::withDetail);
+            RedisInfoUtils.healthInfo().forEach(builder::withDetail);
             return builder.up().build();
         }else{
             return builder.down().build();

@@ -4,6 +4,7 @@
 package com.personal.redis.utils;
 
 import org.springframework.util.StringUtils;
+import redis.clients.jedis.JedisPool;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,7 +26,30 @@ public class RedisInfoUtils {
             ,"used_memory_rss","used_memory_lua","mem_fragmentation_ratio","total_system_memory_human"
             ,"used_cpu_sys","used_cpu_user");
 
-    public static Map<String,String> systemInfo(){
+    public static Map<String, Object> healthInfo(){
+        // 方法返回map
+        Map<String, Object> result = new HashMap<>();
+
+        // redis连接池信息
+        JedisPool jedisPool = SpringUtils.getBean(JedisPool.class);
+        Map<String, Object> pool = new HashMap<>();
+        pool.put("beanName", "jedisPool");
+        pool.put("maxBorrowWaitTimeMillis", jedisPool.getMaxBorrowWaitTimeMillis());
+        pool.put("meanBorrowWaitTimeMillis", jedisPool.getMeanBorrowWaitTimeMillis());
+        pool.put("numActive", jedisPool.getNumActive());
+        pool.put("numIdle", jedisPool.getNumIdle());
+        pool.put("numWaiters", jedisPool.getNumWaiters());
+
+        result.put("pool", pool);
+        result.put("isRun", RedisUtils.isRun());
+        result.put("clientName",RedisUtils.clientGetname());
+        result.put("serverTime",RedisUtils.serverTime());
+        result.put("dbSize",RedisUtils.dbSize());
+        result.put("system", systemInfo());
+        return result;
+    }
+
+    private static Map<String,String> systemInfo(){
         Map<String, String> result = new HashMap<>();
         // 获取redis信息
         String infoStr = RedisUtils.info();
