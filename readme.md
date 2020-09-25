@@ -3,7 +3,7 @@
 ### 配置
 redis:  
   &emsp;enable: true  
-  &emsp;ip: 47.105.221.190  
+  &emsp;ip: 192.168.1.201  
   &emsp;port: 6379  
   &emsp;#超时时间,可省略,默认为2000毫秒  
   &emsp;timeout: 2000  
