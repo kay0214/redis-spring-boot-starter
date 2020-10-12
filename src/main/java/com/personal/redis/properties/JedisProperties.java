@@ -21,6 +21,63 @@ public class JedisProperties {
     private String clientName;
     private JedisPoolProperties pool;
 
+    public static class JedisPoolProperties{
+        private Integer maxActive;
+        private Integer maxTotal;
+        private Integer maxIdle;
+        private Long maxWait;
+        private boolean testOnBorrow;
+        private boolean testOnReturn;
+
+        public Integer getMaxActive() {
+            return maxActive;
+        }
+
+        public void setMaxActive(Integer maxActive) {
+            this.maxActive = maxActive;
+        }
+
+        public Integer getMaxTotal() {
+            return maxTotal;
+        }
+
+        public void setMaxTotal(Integer maxTotal) {
+            this.maxTotal = maxTotal;
+        }
+
+        public Integer getMaxIdle() {
+            return maxIdle;
+        }
+
+        public void setMaxIdle(Integer maxIdle) {
+            this.maxIdle = maxIdle;
+        }
+
+        public Long getMaxWait() {
+            return maxWait;
+        }
+
+        public void setMaxWait(Long maxWait) {
+            this.maxWait = maxWait;
+        }
+
+        public boolean isTestOnBorrow() {
+            return testOnBorrow;
+        }
+
+        public void setTestOnBorrow(boolean testOnBorrow) {
+            this.testOnBorrow = testOnBorrow;
+        }
+
+        public boolean isTestOnReturn() {
+            return testOnReturn;
+        }
+
+        public void setTestOnReturn(boolean testOnReturn) {
+            this.testOnReturn = testOnReturn;
+        }
+    }
+
     public boolean isEnable() {
         return enable;
     }

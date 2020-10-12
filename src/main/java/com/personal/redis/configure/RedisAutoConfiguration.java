@@ -3,7 +3,6 @@
  */
 package com.personal.redis.configure;
 
-import com.personal.redis.properties.JedisPoolProperties;
 import com.personal.redis.properties.JedisProperties;
 import com.personal.redis.utils.SpringUtils;
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 @Import({SpringUtils.class})
 @ConditionalOnClass({JedisPool.class})
-@EnableConfigurationProperties({JedisProperties.class,JedisPoolProperties.class})
+@EnableConfigurationProperties({JedisProperties.class})
 @ConditionalOnProperty(name = {"redis.enable"}, havingValue = "true")
 public class RedisAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger(RedisAutoConfiguration.class);
@@ -45,7 +44,7 @@ public class RedisAutoConfiguration {
         Assert.isTrue(!StringUtils.isEmpty(jedisProperties.getIp()), "ip can't be empty.");
         Assert.isTrue(!StringUtils.isEmpty(jedisProperties.getPort()), "port can't be empty.");
         // 获取连接池配置
-        JedisPoolProperties poolProperties = jedisProperties.getPool();
+        JedisProperties.JedisPoolProperties poolProperties = jedisProperties.getPool();
         // 连接池配置定义
         JedisPoolConfig poolConfig = null;
         if(poolProperties != null){
